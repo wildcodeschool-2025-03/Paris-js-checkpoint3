@@ -5,7 +5,7 @@ import boatRepository from "./boatRepository";
 const browse: RequestHandler = async (req, res, next) => {
   try {
     // Fetch all boats from the database
-    const boats = await boatRepository.readAll();
+    const boats = await boatRepository.readAll(req.query);
 
     // Respond with the boats in JSON format
     res.json(boats);
@@ -16,7 +16,21 @@ const browse: RequestHandler = async (req, res, next) => {
 };
 
 const edit: RequestHandler = async (req, res, next) => {
-  // your code here
+  try {
+		const boatToUpdate = {
+			coord_x: req.body.coord_x,
+			coord_y: req.body.coord_y,
+			id: Number(req.params.id),
+  	};
+
+		const affectedRows = await boatRepository.update(boatToUpdate);
+
+		if (affectedRows > 0) res.sendStatus(204);
+		else res.sendStatus(404);
+
+	} catch (error) {
+		next(error)
+	}
 };
 
 export default {

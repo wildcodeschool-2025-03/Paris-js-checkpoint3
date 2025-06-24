@@ -7,8 +7,8 @@ const router = express.Router();
 /* ************************************************************************* */
 
 import boatActions from "./modules/boat/boatActions";
-import tileActions from "./modules/tile/tileActions";
 import gameActions from "./modules/game/gameActions";
+import tileActions from "./modules/tile/tileActions";
 
 router.get("/api/boats", boatActions.browse);
 router.put("/api/boats/:id", tileActions.validate, boatActions.edit);
